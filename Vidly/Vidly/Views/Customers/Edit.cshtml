@@ -1,0 +1,35 @@
+﻿@model Vidly.ViewModels.CustomerViewModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Customer</h2>
+
+@using (Html.BeginForm("Update", "Customers"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(c => c.Id)
+    <div class="form-group">
+        @Html.LabelFor(c => c.Name)
+        @Html.TextBoxFor(c => c.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.BirthDate)
+        @Html.TextBoxFor(c => c.BirthDate,"{0:d MMM yyyy}", new { @class = "form-control" })
+    </div>
+    
+    <div class="form-group">
+        @Html.Label("Membership Type: ")
+        @Html.DropDownListFor(c => c.MembershipType, new SelectList(Model.MembershipTypes, "Id", "Name"), " ", new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.MembershipType)
+    </div>
+    <div class="form-group">
+        @Html.Label("Subscribe? ")
+        @Html.CheckBoxFor(c => c.IsSubscribedToNewsletter)
+        @Html.Label("Yes")
+    </div>
+    <button type="submit" class="btn btn-default">Save</button>
+}
+
